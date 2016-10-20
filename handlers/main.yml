@@ -1,6 +1,7 @@
 ---
 - name: restart exabgp
-  command: service exabgp restart
+  service: name=exabgp enabled=yes state=restarted
 
 - name: reload exabgp
-  command: service exabgp reload
+  service: name=exabgp enabled=yes state=reloaded
+
