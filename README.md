@@ -7,12 +7,12 @@ Role to deploy and manage
 Requirements
 ------------
 
-The only requirement is *pip*.  This role will install *pip* if it is missing.
+The only requirement is *pip* for RedHat. No requirements on Ubuntu Xenial.  This role will install *pip* if it is missing and required.
 
 Role Variables
 --------------
 
-- **exabgp_version**: Version number of *exabgp* to deploy.  Defaults to 3.4.10.
+- **exabgp_version**: Version number of *exabgp* to deploy.  Defaults to 3.4.10. (RedHat only)
 - **exabgp_pid_file**: Path to PID file.  Defaults to */var/run/exabgp.pid*.
 - **exabgp_user**: User for *exabgp* process to run as.  Defaults to *nobody*.
 - **exabgp_group**: Group for *exabgp* process to run as.  Defaults to *nobody*.
