@@ -7,6 +7,18 @@
     state: present
   with_items:
     - exabgp
+
+- name: replace faulty original systemd unit file
+  copy:
+    src: ../files/exabgp.service
+    dest: /lib/systemd/system/
+    force: yes
+
+- name: reload systemd
+  systemd:
+    name: exabgp
+    daemon_reload: yes
+
 - name: enable exabgp service
   service:
     name: exabgp
