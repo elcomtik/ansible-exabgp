@@ -7,3 +7,7 @@
     state: present
   with_items:
     - exabgp
+- name: enable exabgp service
+  service:
+    name: exabgp
+    enabled: yes
