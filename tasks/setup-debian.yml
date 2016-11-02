@@ -1,12 +1,10 @@
 ---
 - name: install exabgp
   apt:
-    name: '{{ item }}'
+    name: exabgp
     update_cache: yes
     cache_valid_time: 3600
     state: present
-  with_items:
-    - exabgp
 
 - name: replace faulty original systemd unit file
   copy:
@@ -14,12 +12,22 @@
     dest: /lib/systemd/system/
     force: yes
 
+- name: remove ExaBGP upstart script
+  file:
+    path: /etc/init/exabgp.conf
+    state: absent
+
+- name: remove ExaBGP SysV init script
+  file:
+    path: /etc/init.d/exabgp
+    state: absent
+
 - name: reload systemd
   systemd:
     name: exabgp
     daemon_reload: yes
 
 - name: enable exabgp service
-  service:
+  systemd:
     name: exabgp
     enabled: yes

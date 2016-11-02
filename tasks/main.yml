@@ -6,13 +6,21 @@
   when: ansible_os_family == "Debian"
 
 - name: template exabgp.env
-  template: src=exabgp.env.j2 dest=/etc/exabgp/exabgp.env
+  template:
+    src: exabgp.env.j2
+    dest: /etc/exabgp/exabgp.env
   notify: restart exabgp
 
 - name: template exabgp.conf
-  template: src=exabgp.conf.j2 dest=/etc/exabgp/exabgp.conf
+  template:
+    src: exabgp.conf.j2
+    dest: /etc/exabgp/exabgp.conf
   notify: reload exabgp
 
 - name: enable and start exabgp
-  service: name=exabgp enabled=yes state=started
+  service:
+    name: exabgp
+    enabled: yes
+    state: started
+  when: "{{ exabgp_start|default(True) }}"
   
