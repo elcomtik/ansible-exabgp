@@ -1,6 +1,6 @@
 [Unit]
 Description=ExaBGP
-After=network.target
+After=network.target cloud-init.service
 ConditionPathExists=/etc/exabgp/exabgp.conf
 
 [Service]
