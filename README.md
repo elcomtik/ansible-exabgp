@@ -11,7 +11,7 @@ No specific pre-requirements (as of this update/fork).
 
 This update switches from using `pip` to an included RPM package installed with `yum` for RedHat and derivatives.
 
-On Ubuntu (Xenial), this role will install `pip` if it is missing, and uses `pip` do the installation.
+On Ubuntu (Xenial), this role already used `apt`, and may install `pip` if it is missing and if needed.
 
 Role Variables
 --------------
