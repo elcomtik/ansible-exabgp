@@ -1,22 +1,14 @@
 ---
-- name: install pip
-  yum: 
-    name: python-pip 
+- name: copy over the packages
+  copy: src=exabgp-rpms dest=/var/tmp
+
+- name: install the packages (locally)
+  yum:
+    name: "{{item}}"
     state: installed
-
-- name: install exabgp
-  pip: 
-    name: exabgp 
-    version: "{{ exabgp_version }}" 
-    state: present
-
-- name: create exabgp config directory
-  file:
-    path: /etc/exabgp
-    state: directory
-    owner: root
-    group: root
-    mode: 0755
+  with_items:
+    - /var/tmp/exabgp-rpms/python-exabgp-3.4.20-1.el7.centos.noarch.rpm
+    - /var/tmp/exabgp-rpms/exabgp-3.4.20-1.el7.centos.noarch.rpm
 
 - name: create path for pid file
   file:
@@ -25,16 +17,3 @@
     owner: "{{ exabgp_user }}"
     group: "{{ exabgp_group }}"
     mode: 0755
-
-- name: check for systemd
-  stat: 
-    path: /usr/bin/systemd
-  register: systemd
-
-- name: template init script
-  template: 
-    src: exabgp.init.j2
-    dest: /etc/init.d/exabgp 
-    mode: 0755
-    owner: root
-    group: root
