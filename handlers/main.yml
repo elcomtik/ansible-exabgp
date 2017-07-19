@@ -3,11 +3,10 @@
   service: 
     name: exabgp
     state: restarted
-  when: "{{ exabgp_start|default(True) }}"
+  when: exabgp_start|default(true)
 
 - name: reload exabgp
   service: 
     name: exabgp
     state: reloaded
-  when: "{{ exabgp_start|default(True) }}"
-
+  when: exabgp_start|default(true)
