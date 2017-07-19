@@ -1,29 +1,36 @@
-exabgp
-======
 
-Role to deploy and manage
-[exabgp](https://github.com/Exa-Networks/exabgp).
+Ansible ExaBGP
+==============
+
+Ansible role to deploy and manage [ExaBGP](https://github.com/Exa-Networks/exabgp).
 
 Requirements
 ------------
 
-The only requirement is *pip* for RedHat. No requirements on Ubuntu Xenial.  This role will install *pip* if it is missing and required.
+No specific pre-requirements (as of this update/fork).
+
+This update switches from using `pip` to an included RPM package installed with `yum` for RedHat and derivatives.
+
+On Ubuntu (Xenial), this role will install `pip` if it is missing, and uses `pip` do the installation.
 
 Role Variables
 --------------
 
-- **exabgp_version**: Version number of *exabgp* to deploy.  Defaults to 3.4.10. (RedHat only)
-- **exabgp_pid_file**: Path to PID file.  Defaults to */var/run/exabgp.pid*.
-- **exabgp_user**: User for *exabgp* process to run as.  Defaults to *nobody*.
-- **exabgp_group**: Group for *exabgp* process to run as.  Defaults to *nobody*.
-- **exabgp_env**: This is a dictionary of dictionaries that configures
-  how the *exabgp* process starts and runs.  Refer to *exabgp*
-  documentation for what are valid configuration values.  A typical
-  configuration knob is of the form *exabgp.log.enable*.  The first two
-  parts, *exabgp.log* form the section name.  The last part is
-  configuration key that accepts a parameter.  This defaults to:
+
+- **exabgp\_pid\_file:** Path to PID file.  
+  Defaults to `/var/run/exabgp.pid`.
+
+- **exabgp\_user:** User for *ExaBGP* process to run as.  
+  Defaults to *nobody*.
+
+- **exabgp\_group:** Group for *ExaBGP* process to run as.  
+  Defaults to *nobody*.
+
+- **exabgp\_env:** This is a dictionary of dictionaries that configures how the *ExaBGP* process starts and runs. Refer to *ExaBGP* [documentation](https://github.com/Exa-Networks/exabgp/wiki) for what are valid configuration values.  A typical configuration knob is of the form `exabgp.log.enable`. The first two parts, `exabgp.log` form the section name. The last part is configuration key that accepts a parameter.  
+  This defaults to:  
+
 ```
-  exabgp_env:
+exabgp_env:
     exabgp.daemon:
       daemonize: true
       pid: "{{ exabgp_pid_file }}"
@@ -32,11 +39,10 @@ Role Variables
       enable: true
       destination: syslog
 ```
-- **exabgp_conf**: This is a list of configuration sections for
-  *exabgp.conf*.  Each element in the list is a dictionary with three
-  possible keys: *section* (such as *group*, *neighbor*, etc), *name*
-  (optional), and *config* that defines the actual configuration for
-  this section.  This defaults to an empty list.
+
+- **exabgp\_conf**: This is a list of configuration sections for `exabgp.conf`. Each element in the list is a dictionary with three possible keys: *section* (such as *group*, *neighbor*, etc), *name* (optional), and *config* that defines the actual configuration for the section.  
+  This defaults to an empty list. An example is:
+
 ```
   exabgp_conf:
     - section: group
@@ -63,8 +69,7 @@ No dependency on other roles.
 Example Playbook
 ----------------
 
-Example:
-
+```
     - hosts: bgp_servers
       vars:
         exabgp_conf:
@@ -86,13 +91,16 @@ Example:
               }
       roles:
          - { role: sfromm.exabgp }
+```
 
 License
 -------
 
-GPLv2
+GPL v2.0
 
-Author Information
-------------------
+Authors Information
+-------------------
 
-See https://github.com/sfromm
+ - Original author, see: [github.com/sfromm](https://github.com/sfromm)
+ - Also includes contributions from: [github.com/Foxlik](https://github.com/Foxlik)
+ - This fork updated by Daniel @ [AFRINIC.net](https://afrinic.net)
