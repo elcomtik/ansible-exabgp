@@ -8,7 +8,7 @@
 
 - name: replace faulty original systemd unit file
   copy:
-    src: ../files/exabgp.service
+    src: exabgp.service
     dest: /lib/systemd/system/
     force: yes
 
