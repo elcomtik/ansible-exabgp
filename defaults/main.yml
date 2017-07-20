@@ -3,7 +3,6 @@
 exabgp_user: nobody
 exabgp_group: nobody
 exabgp_pid_file: /var/run/exabgp/exabgp.pid
-exabgp_version: 3.4.10
 exabgp_env:
   exabgp.daemon:
     daemonize: true
