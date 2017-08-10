@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  author: Stephen Fromm, and others
+  author: Stephen Fromm, and others (including Daniel Shaw)
   description: Role to manage ExaBGP
   company: 
   license: GPLv2
