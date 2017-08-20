@@ -21,3 +21,11 @@
     name: exabgp
     enabled: yes
   when: exabgp_start|default(true)
+
+# allow not only to set up without starting,
+# but also to modify/check and stop service
+- name: stop exabgp if needed
+  service:
+    name: exabgp
+    state: stopped
+  when: not exabgp_start|default(true)
