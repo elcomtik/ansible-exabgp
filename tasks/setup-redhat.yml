@@ -21,6 +21,11 @@
     group: "{{ exabgp_group }}"
     mode: 0755
 
+- name: make pid file path persistent
+  template:
+    src: tmpfiles-exabgp.j2
+    dest: /usr/lib/tmpfiles.d/exabgp.conf
+
 - name: fix permissions on etc directory
   file:
     path: /etc/exabgp
