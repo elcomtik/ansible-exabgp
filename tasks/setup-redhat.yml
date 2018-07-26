@@ -7,11 +7,11 @@
     name: "{{ item }}"
     state: installed
   with_items:
-    - /var/tmp/exabgp-rpms/python-exabgp-3.4.20-2.el7.centos.noarch.rpm
-    - /var/tmp/exabgp-rpms/exabgp-3.4.20-2.el7.centos.noarch.rpm
-    - python-setuptools
-    - python-ipaddr
-    - bind-utils
+    - "/var/tmp/exabgp-rpms/python-{{exabgp_release}}.centos.noarch.rpm"
+    - "/var/tmp/exabgp-rpms/exabgp-{{exabgp_release}}.centos.noarch.rpm"
+    - "python-setuptools"
+    - "python-ipaddr"
+    - "bind-utils"
 
 - name: create path for pid file
   file:
