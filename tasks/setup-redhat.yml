@@ -7,7 +7,7 @@
     name: "{{ item }}"
     state: installed
   with_items:
-    - "/var/tmp/exabgp-rpms/python-{{exabgp_release}}.centos.noarch.rpm"
+    - "/var/tmp/exabgp-rpms/python-exabgp-{{exabgp_release}}.centos.noarch.rpm"
     - "/var/tmp/exabgp-rpms/exabgp-{{exabgp_release}}.centos.noarch.rpm"
     - "python-setuptools"
     - "python-ipaddr"
