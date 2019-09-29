@@ -1,0 +1,38 @@
+---
+
+- name: Installing dependencies on supported distributions
+  package:
+    name: "{{ item }}"
+    state: present
+  with_items: "{{ exabgp_packages }}"
+
+- name: Install exabgp
+  pip:
+    name: "{{ exabgp_pip_name }}"
+    version: "{{ exabgp_version }}"
+    executable: pip3
+    state: latest
+
+- name: Create systemd service unit
+  copy:
+    src: exabgp.service
+    dest: /etc/systemd/system/exabgp.service
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart exabgp
+  when: ansible_service_mgr == "systemd"
+
+- name: Create openrc service unit
+  copy:
+    src: exabgp.openrc
+    dest: /etc/init.d/exabgp
+    owner: root
+    group: root
+    mode: 0755
+  notify:
+    - restart exabgp
+  when: ansible_service_mgr == "openrc"
+
+# vim: set ts=2 sw=2:

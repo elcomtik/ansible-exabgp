@@ -1,31 +1,13 @@
 ---
-# install (package)
-- include: "setup-{{ansible_os_family|lower}}.yml"
 
-# add configs
-- name: template exabgp.env
-  template:
-    src: exabgp.env.j2
-    dest: /etc/exabgp/exabgp.env
-  notify: restart exabgp
+- include: dist_vars.yml
 
-- name: template exabgp.conf
-  template:
-    src: exabgp.conf.j2
-    dest: /etc/exabgp/exabgp.conf
-  notify: reload exabgp
+- include: install.yml
 
-# and go, go, go
+- include: config.yml
+
 - name: enable and start exabgp
   service:
     name: exabgp
-    enabled: yes
+    enabled: true
   when: exabgp_start|default(true)
-
-# allow not only to set up without starting,
-# but also to modify/check and stop service
-- name: stop exabgp if needed
-  service:
-    name: exabgp
-    state: stopped
-  when: not exabgp_start|default(true)

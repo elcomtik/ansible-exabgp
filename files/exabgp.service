@@ -1,13 +1,15 @@
 [Unit]
 Description=ExaBGP
-After=network.target cloud-init.service
+Documentation=man:exabgp(1)
+Documentation=man:exabgp.conf(5)
+Documentation=https://github.com/Exa-Networks/exabgp/wiki
+After=network.target
 ConditionPathExists=/etc/exabgp/exabgp.conf
+ConditionPathExists=/etc/exabgp/exabgp.env
 
 [Service]
 Environment=exabgp_daemon_daemonize=false
-Environment=exabgp_log_destination=stdout
-Environment=ETC=/etc
-ExecStart=/usr/sbin/exabgp /etc/exabgp/exabgp.conf
+ExecStart=/usr/local/bin/exabgp -e /etc/exabgp/exabgp.env /etc/exabgp/exabgp.conf
 ExecReload=/bin/kill -USR1 $MAINPID
 
 [Install]

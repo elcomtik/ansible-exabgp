@@ -1,4 +1,5 @@
-{{ "Ansible managed: Do not edit manually." |comment }}
+#{{ ansible_managed }}
+
 {% for conf in exabgp_conf %}
 {{ conf.section }} {% if 'name' in conf %}{{ conf.name }}{% endif %} {
 {{ conf.config |indent(2, true) }}

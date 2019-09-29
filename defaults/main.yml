@@ -1,8 +1,8 @@
 ---
-# defaults file for exabgp
-exabgp_user: nobody
-exabgp_group: nobody
-exabgp_pid_file: /run/exabgp/exabgp.pid
+
+exabgp_version: null
+exabgp_pip_name: exabgp
+
 exabgp_env:
   exabgp.daemon:
     daemonize: true
@@ -10,5 +10,5 @@ exabgp_env:
   exabgp.log:
     all: false
     enable: true
-    destination: syslog
+
 exabgp_conf: []

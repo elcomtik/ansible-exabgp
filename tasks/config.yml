@@ -1,0 +1,40 @@
+---
+
+- name: Create exabgp directory
+  file:
+    path: /etc/exabgp
+    state: directory
+    owner: root
+    group: root
+    mode: 0755
+
+- name: Copy exabgp.env
+  template:
+    src: exabgp.env.j2
+    dest: /etc/exabgp/exabgp.env
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart exabgp
+
+- name: Copy exabgp.conf
+  template:
+    src: exabgp.conf.j2
+    dest: /etc/exabgp/exabgp.conf
+    owner: root
+    group: root
+    mode: 0644
+  notify: reload exabgp
+
+- name: Copy exabgp scripts
+  copy:
+    content: "{{ item.value }}"
+    dest: "/etc/exabgp/{{ item.key }}"
+    owner: root
+    group: root
+    mode: 0755
+  no_log: true
+  notify: reload exabgp
+  with_dict: "{{ exabgp_scripts }}"
+
+# vim: set ts=2 sw=2:

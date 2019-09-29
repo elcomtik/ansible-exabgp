@@ -1,0 +1,6 @@
+---
+
+exabgp_packages:
+  - python-pip
+
+# vim: set ts=2 sw=2:
