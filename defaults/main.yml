@@ -6,7 +6,7 @@ exabgp_pip_name: exabgp
 exabgp_env:
   exabgp.daemon:
     daemonize: true
-    pid: "{{ exabgp_pid_file }}"
+    pid: "/var/run/exabgp/exabgp.pid"
   exabgp.log:
     all: false
     enable: true

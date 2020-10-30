@@ -1,12 +1,12 @@
 ---
 - name: restart exabgp
-  service:
+  systemd:
     name: exabgp
+    daemon_reload: true
     state: restarted
-  when: exabgp_start|default(true)
 
 - name: reload exabgp
-  service:
+  systemd:
     name: exabgp
+    daemon_reload: true
     state: reloaded
-  when: exabgp_start|default(true)

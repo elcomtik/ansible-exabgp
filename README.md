@@ -21,7 +21,7 @@ exabgp_pip_name: exabgp
 exabgp_env:
   exabgp.daemon:
     daemonize: true
-    pid: "{{ exabgp_pid_file }}"
+    pid: "/var/run/exabgp/exabgp.pid"
   exabgp.log:
     all: false
     enable: true
@@ -44,11 +44,14 @@ Example Playbook
   vars:
     exabgp_env:
       exabgp.daemon:
-        daemonize: true
-        pid: "{{ exabgp_pid_file }}"
+        daemonize: True
+        pid: "/var/run/exabgp/exabgp.pid"
       exabgp.log:
-        all: false
-        enable: true
+        all: False
+        enable: True
+      exabgp.api:
+        ack: False
+
     exabgp_scripts:
       watchdog.sh: |-
         #!/bin/bash
@@ -58,8 +61,8 @@ Example Playbook
       - section: process
         name: watchdog
         config: |-
-          run /etc/exabgp/foo.sh;
-          encoder json;
+          run /etc/exabgp/watchdog.sh;
+          encoder text;
       - section: neighbor
         name: EXAMPLE
         config: |-
@@ -67,13 +70,13 @@ Example Playbook
           local-as 65000;
           local-address 127.0.0.1;
           hold-time 180;
-          static {
-            route 192.0.2.1/32 next-hop self watchdog foo;
+          api {
+            processes [ watchdog ];
           }
 
 
   roles:
-    - role: Anthony25.exabgp
+    - role: elcomtik.exabgp
 ```
 
 Dependencies
@@ -91,4 +94,5 @@ Authors Information
 
  - Original author, see: [github.com/sfromm](https://github.com/sfromm)
  - Also includes contributions from: [github.com/Foxlik](https://github.com/Foxlik)
- - This fork updated by Daniel @ [AFRINIC.net](https://afrinic.net)
+ - Also updated by Daniel @ [AFRINIC.net](https://afrinic.net)
+ - Also includes contributions from: [github.com/aruhier](https://github.com/aruhier)

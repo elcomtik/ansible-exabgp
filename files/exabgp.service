@@ -8,7 +8,12 @@ ConditionPathExists=/etc/exabgp/exabgp.conf
 ConditionPathExists=/etc/exabgp/exabgp.env
 
 [Service]
+User=exabgp
+Group=exabgp
+RuntimeDirectory=exabgp
 Environment=exabgp_daemon_daemonize=false
+ExecStartPre=/bin/bash -c "/usr/bin/mkfifo -m 0666 /var/run/exabgp/exabgp.{in,out}"
+ExecStopPost=/bin/bash -c "/bin/rm -f /var/run/exabgp.{in,out}"
 ExecStart=/usr/local/bin/exabgp -e /etc/exabgp/exabgp.env /etc/exabgp/exabgp.conf
 ExecReload=/bin/kill -USR1 $MAINPID
 

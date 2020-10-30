@@ -13,6 +13,21 @@
     executable: pip3
     state: latest
 
+- name: Create exabgp system group
+  group:
+    name: exabgp
+    system: true
+    state: present
+
+- name: Create exabgp system user
+  user:
+    name: exabgp
+    system: true
+    shell: "/usr/sbin/nologin"
+    group: exabgp
+    createhome: false
+    home: "/etc/exabgp"
+
 - name: Create systemd service unit
   copy:
     src: exabgp.service
@@ -22,17 +37,5 @@
     mode: 0644
   notify:
     - restart exabgp
-  when: ansible_service_mgr == "systemd"
-
-- name: Create openrc service unit
-  copy:
-    src: exabgp.openrc
-    dest: /etc/init.d/exabgp
-    owner: root
-    group: root
-    mode: 0755
-  notify:
-    - restart exabgp
-  when: ansible_service_mgr == "openrc"
 
 # vim: set ts=2 sw=2:
